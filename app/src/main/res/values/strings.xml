@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Assignment3cmpt276</string>
+    <string name="mineseeker">MineSeeker</string>
+    <string name="by_jason_sebastian_aritanto">By: Jason Sebastian Aritanto</string>
+    <string name="assignment_3">Assignment 3</string>
+    <string name="skip">skip</string>
+    <string name="play">Play</string>
+    <string name="option">Option</string>
+    <string name="help">Help</string>
+    <string name="board_size">Board Size</string>
 </resources>
