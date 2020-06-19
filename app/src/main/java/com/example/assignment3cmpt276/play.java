@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -24,17 +25,18 @@ import static com.example.assignment3cmpt276.MainActivity.sizex;
 import static com.example.assignment3cmpt276.MainActivity.sizey;
 
 public class play extends AppCompatActivity {
-    Button buttons[][]=new Button[sizex+1][sizey+1];
+    Button buttons[][]=new Button[sizex][sizey];
+    Integer click[] = new Integer[mineNum];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
         populateBtn();
-        bombBtn();
+
 
     }
     mineLoc mineLoc= new mineLoc();
-    int click;
+
     private void bombBtn() {
         Random rand = new Random();
         for(int i = 0 ; i<mineNum;i++)
@@ -42,24 +44,26 @@ public class play extends AppCompatActivity {
 
             final int x = rand.nextInt(sizex);
             final int y = rand.nextInt(sizey);
-            mineLoc.add(new mine(sizex,sizey));
+            mineLoc.add(x+"+"+y);
             final Button button = buttons[x][y];
-            click =0;
+            click[i]=0;
+            final int finalI = i;
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     lockButton();
 
-                    if(click==0){
+                    if(click[finalI]==0){
                         int newWidth = button.getWidth();
                         int newHeight= button.getHeight();
                         Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.mine);
                         Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap,newWidth,newHeight,true);
                         Resources resource = getResources();
                         button.setBackground(new BitmapDrawable(resource,scaledBitmap));
-                        click++;
+                        mineLoc.found(x+"+"+y);
+                        click[finalI]++;
                     }
-                    else if(click == 1)
+                    else if(click[finalI] == 1)
                     {
                         button.setText(""+scanMine(x,y));
                     }
@@ -71,18 +75,25 @@ public class play extends AppCompatActivity {
     private int scanMine(int x, int y)
     {
         int count = 0;
-        for(int i=0; i<sizex;i++)
+        for(int row=0; row<sizex;row++)
         {
-            if(mineLoc.containsMine(new mine(i, y)))
-                count++;
+            if(row!=x)
+                if(mineLoc.containsMine(row+"+"+y)) {
+                    count++;
+                    Log.i("Lalisa", "scanMine: true " + count);
+              }
         }
-        for(int i=0; i<sizey;i++)
+        for(int col=0; col<sizey;col++)
         {
-            if(mineLoc.containsMine(new mine(x, i)))
-                count++;
+            if(col!=y)
+                if(mineLoc.containsMine(x+"+"+col))
+             {
+                 count++;
+                 Log.i("Lalisa", "scanMine: true " + count);
+             }
         }
         if(count!=0)
-            return count-2; //minus double scanning for mine at x,y twice (horizontal and vertical scan)
+            return count; //minus double scanning for mine at x,y twice (horizontal and vertical scan)
         else return 0;
     }
     private void lockButton() {
@@ -116,21 +127,22 @@ public class play extends AppCompatActivity {
                 final int finalRow=row;
                 Button button = new Button(this);
                 button.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,TableRow.LayoutParams.MATCH_PARENT,1.0f ));
-                button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        gridButtonClicked(finalCol,finalRow);
-                    }
-                });
                 button.setPadding(0,0,0,0);
                 tableRow.addView(button);
                 buttons[row][col]=button;
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        gridButtonClicked(finalRow,finalCol);
+                    }
+                });
             }
         }
-
+        bombBtn();
     }
 
     private void gridButtonClicked(int x , int y) {
+        Log.d("lalisa", "gridButtonClicked: "+x + ""+y);
         Button button = buttons[x][y];
         button.setText(""+scanMine(x,y));
     }

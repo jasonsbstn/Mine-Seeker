@@ -6,21 +6,19 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class mineLoc implements Iterable<mine> {
-    private List<mine> mines= new ArrayList<>();
-    public void add(mine mine) {
+public class mineLoc {
+    private List<String> mines= new ArrayList<>();
+    public void add(String mine) {
         mines.add(mine);
     }
-    public boolean containsMine(mine mine)
+    public boolean containsMine(String mine)
     {
         if(mines.contains(mine))
             return true;
         else
             return false;
     }
-    @NonNull
-    @Override
-    public Iterator<mine> iterator() {
-        return null;
+    public void found(String mine) {
+        mines.remove(mine);
     }
 }
