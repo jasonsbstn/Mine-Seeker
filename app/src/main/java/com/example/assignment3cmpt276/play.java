@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,19 +24,32 @@ import java.util.Random;
 import static com.example.assignment3cmpt276.MainActivity.mineNum;
 import static com.example.assignment3cmpt276.MainActivity.sizex;
 import static com.example.assignment3cmpt276.MainActivity.sizey;
+import static java.lang.Integer.parseInt;
 
 public class play extends AppCompatActivity {
     Button buttons[][]=new Button[sizex][sizey];
     Integer click[] = new Integer[mineNum];
+    int scanUsed =0;
+    int mineFound =0;
+    TextView mineNumber;
+    TextView scanNum;
+    mineLoc mineLoc= new mineLoc();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        mineNumber=findViewById(R.id.minesFound);
+        scanNum= findViewById(R.id.scansUsed);
+        scanNum.setText("#of scan used= " +scanUsed);
+        mineNumber.setText("Found "+mineFound+"of "+mineNum +" mines");
         populateBtn();
-
+        allMinesFound();
 
     }
-    mineLoc mineLoc= new mineLoc();
+
+    private void allMinesFound() {
+
+    }
 
     private void bombBtn() {
         Random rand = new Random();
@@ -62,36 +76,64 @@ public class play extends AppCompatActivity {
                         button.setBackground(new BitmapDrawable(resource,scaledBitmap));
                         mineLoc.found(x+"+"+y);
                         click[finalI]++;
+                        mineFound++;
+                        mineNumber.setText("Found "+mineFound+"of "+mineNum +" mines");
+                        decreaseScanMineText(x,y);
+                        Vibrator vibrate= (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+                        vibrate.vibrate(400); //taken from https://stackoverflow.com/questions/13950338/how-to-make-an-android-device-vibrate
                     }
                     else if(click[finalI] == 1)
                     {
                         button.setText(""+scanMine(x,y));
+                        click[finalI]++;//prevents to click more than 1 times
                     }
                 }
             });
         }
 
     }
-    private int scanMine(int x, int y)
+    private void decreaseScanMineText(int x, int y)
     {
-        int count = 0;
         for(int row=0; row<sizex;row++)
         {
+           Button button = buttons[row][y];
             if(row!=x)
-                if(mineLoc.containsMine(row+"+"+y)) {
-                    count++;
-                    Log.i("Lalisa", "scanMine: true " + count);
-              }
+                if(button.getText().length()!=0) {
+                    int num = parseInt(button.getText().toString())-1;
+                    button.setText(""+num);
+                }
         }
         for(int col=0; col<sizey;col++)
         {
+            Button button = buttons[x][col];
+            if(col!=y)
+                if(button.getText().length()!=0)
+                {
+                    int num=(parseInt(button.getText().toString())-1);
+                    button.setText(""+num);
+                }
+        }
+    }
+    private int scanMine(int x, int y)
+            {
+                int count = 0;
+                for(int row=0; row<sizex;row++)
+                {
+                    if(row!=x)
+                        if(mineLoc.containsMine(row+"+"+y)) {
+                            count++;
+                        }
+                }
+                for(int col=0; col<sizey;col++)
+                {
             if(col!=y)
                 if(mineLoc.containsMine(x+"+"+col))
              {
                  count++;
-                 Log.i("Lalisa", "scanMine: true " + count);
              }
         }
+        scanUsed++;
+        scanNum.setText("#of scan used= " +scanUsed);
         if(count!=0)
             return count; //minus double scanning for mine at x,y twice (horizontal and vertical scan)
         else return 0;
@@ -142,7 +184,6 @@ public class play extends AppCompatActivity {
     }
 
     private void gridButtonClicked(int x , int y) {
-        Log.d("lalisa", "gridButtonClicked: "+x + ""+y);
         Button button = buttons[x][y];
         button.setText(""+scanMine(x,y));
     }

@@ -8,4 +8,5 @@
     <string name="option">Option</string>
     <string name="help">Help</string>
     <string name="board_size">Board Size</string>
+    <string name="mine_number">Mine number</string>
 </resources>
