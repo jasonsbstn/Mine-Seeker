@@ -8,13 +8,13 @@
 
     <TableLayout
         android:id="@+id/tableForBtns"
-        android:layout_width="412dp"
-        android:layout_height="594dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-    </TableLayout>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/minesFound"
+        android:layout_alignLeft="@+id/minesFound"
+        android:layout_margin="0dp"
+        android:stretchColumns="*"
+        android:layout_alignStart="@+id/minesFound"></TableLayout>
 
     <TextView
         android:id="@+id/minesFound"

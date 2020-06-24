@@ -1,3 +1,8 @@
+/*
+    Made By: Jason Sebastian Aritanto
+    SFU ID : 301377046
+    Description: stores where the mine is located
+ */
 package com.example.assignment3cmpt276;
 
 import androidx.annotation.NonNull;

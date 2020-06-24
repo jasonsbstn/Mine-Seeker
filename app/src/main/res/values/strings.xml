@@ -8,4 +8,22 @@
     <string name="option">Option</string>
     <string name="help">Help</string>
     <string name="board_size">Board Size</string>
+    <string name="mine_number">Mine number</string>
+    <string name="aboutme"><a href="https://opencoursehub.cs.sfu.ca/bfraser/grav-cms/cmpt276/home">
+        This is created by Jason Sebastian Aritanto \n
+        I am an SFU student taking CMPT 276 with Brian Fraser \n
+        This app is created for Assignment3
+    </a></string>
+    <string name="about_the_author">About The Author</string>
+    <string name="how_to_play">How to Play</string>
+    <string name = "howtoplay">
+        Objective of the game : \n
+        Find all mines with fewest number of scan \n
+        Instructions :\n
+        1. Click one of the boxes \n
+        2. If you found a mine, you can click on the mine to start a scan or click another box\n
+        3. If you do not find a mine it starts a scan.\n
+        4. Once you found all of the mines, you won\n
+        Note: Scan the row and column of the button clicked for mines
+    </string>
 </resources>
