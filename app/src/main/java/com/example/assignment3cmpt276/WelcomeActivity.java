@@ -4,15 +4,20 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import static android.os.SystemClock.sleep;
 
 public class WelcomeActivity extends AppCompatActivity {
     ImageView imageView;
     Button btn;
+    TextView assignment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +25,7 @@ public class WelcomeActivity extends AppCompatActivity {
         imageView=findViewById(R.id.imageView);
         Animation animation = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.welcome_animation);
         imageView.setAnimation(animation);
+        assignment = findViewById(R.id.assignment);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
@@ -28,8 +34,14 @@ public class WelcomeActivity extends AppCompatActivity {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                finish();
-                startActivity(new Intent(getApplication(), MainActivity.class));
+                Handler handler= new Handler();
+                Runnable r = new Runnable(){
+                    @Override
+                    public void run() {
+                        finish();
+                        startActivity(new Intent(getApplication(), MainActivity.class));
+                    }};//automatically move to main activity after 4 second animation ends
+                handler.postDelayed(r,4000); //https://stackoverflow.com/questions/29198262/android-sleep-without-blocking-ui
             }
 
             @Override
@@ -37,6 +49,24 @@ public class WelcomeActivity extends AppCompatActivity {
 
             }
         });
+        Animation animation2 = AnimationUtils.loadAnimation(this,R.anim.fade_in);
+        animation2.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                assignment.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+        assignment.setAnimation(animation2);
         btn = findViewById(R.id.skipButton);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -17,6 +17,7 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Random;
@@ -43,11 +44,24 @@ public class play extends AppCompatActivity {
         scanNum.setText("#of scan used= " +scanUsed);
         mineNumber.setText("Found "+mineFound+"of "+mineNum +" mines");
         populateBtn();
-        allMinesFound();
 
     }
 
     private void allMinesFound() {
+        if (mineFound == mineNum) {
+            Intent intent = new Intent(play.this,winPopUp.class);
+            intent.putExtra("currentScore",scanUsed);
+            startActivityForResult(intent,80);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case 80:
+                finish();
+        }
 
     }
 
@@ -58,7 +72,13 @@ public class play extends AppCompatActivity {
 
             final int x = rand.nextInt(sizex);
             final int y = rand.nextInt(sizey);
-            mineLoc.add(x+"+"+y);
+            if(mineLoc.containsMine(x+"+"+y)==false)
+                mineLoc.add(x+"+"+y);
+            else
+            {
+                i--;//prevents it from duplicating
+                continue;
+            }
             final Button button = buttons[x][y];
             click[i]=0;
             final int finalI = i;
@@ -87,6 +107,7 @@ public class play extends AppCompatActivity {
                         button.setText(""+scanMine(x,y));
                         click[finalI]++;//prevents to click more than 1 times
                     }
+                    allMinesFound();
                 }
             });
         }
