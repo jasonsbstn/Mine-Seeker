@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.example.assignment3cmpt276.R;
 
 import static com.example.assignment3cmpt276.UI.MainActivity.mineNum;
+import static com.example.assignment3cmpt276.UI.MainActivity.numPlayed;
 import static com.example.assignment3cmpt276.UI.MainActivity.score;
 import static com.example.assignment3cmpt276.UI.MainActivity.sizex;
 import static com.example.assignment3cmpt276.UI.MainActivity.sizey;
@@ -24,6 +25,7 @@ import static com.example.assignment3cmpt276.UI.MainActivity.sizey;
 public class winPopUp extends Activity{
     TextView currentScore;
     TextView highScore;
+    TextView numplay;
     Button button ;
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -41,6 +43,8 @@ public class winPopUp extends Activity{
         currentScore.setText(""+newScore);
         score.setHighScore(sizex+"x"+sizey,mineNum,newScore);
         highScore.setText(""+score.getHighScore(sizex+"x"+sizey,mineNum));
+        numplay=findViewById(R.id.numberoftimes);
+        numplay.setText(numPlayed+" times");
         button = findViewById(R.id.returnToMain);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

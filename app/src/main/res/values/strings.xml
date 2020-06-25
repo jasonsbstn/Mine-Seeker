@@ -34,4 +34,9 @@
 
     </string>
     <string name="resetscore">ResetScore</string>
+    <string name="you_win">You Win!</string>
+    <string name="current_score">Current Score:</string>
+    <string name="high_score">High Score:</string>
+    <string name="returning">Return</string>
+    <string name="you_have_played">You Have Played</string>
 </resources>
