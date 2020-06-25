@@ -5,6 +5,7 @@ Description : Main activity where all the buttons to play option or help is loca
 */
 package com.example.assignment3cmpt276.UI;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     Button optionBtn;
     Button helpBtn;
     static highScore score = new highScore();
+    static int numPlayed;
+    SharedPreferences prefScore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,15 +38,23 @@ public class MainActivity extends AppCompatActivity {
         playBtn = findViewById(R.id.playBtn);
         optionBtn = findViewById(R.id.optionBtn);
         helpBtn = findViewById(R.id.helpBtn);
-
+        prefScore = this.getSharedPreferences("numPlay",MODE_PRIVATE);
+        numPlayed=prefScore.getInt("numPlay",0);
         startBtn();
         helpBtnAct();
         optionBtnAct();
         populateHighScore();
         refreshScreen();
 
-
     }
+
+    private void saveNumPlay() {
+        SharedPreferences prefs = this.getSharedPreferences("numPlay",MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putInt("numPlay",numPlayed);
+        editor.apply();
+    }
+
     private void populateHighScore() {
         int [] rowSize=getResources().getIntArray(R.array.row);
         int [] colSize=getResources().getIntArray(R.array.col);
@@ -84,10 +95,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = option.makeIntent(MainActivity.this);
-                startActivity(intent);
+                startActivityForResult(intent,80);
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode){
+        case 80:
+                saveNumPlay();//checks whether it has been reset or not
+
+        }
     }
 
     private void helpBtnAct() {
@@ -105,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = mineSeeker.makeIntent(MainActivity.this);
+                numPlayed++;
+                saveNumPlay();
                 startActivity(intent);
             }
         });

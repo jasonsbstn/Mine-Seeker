@@ -15,11 +15,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.assignment3cmpt276.Classes.highScore;
 import com.example.assignment3cmpt276.R;
 
 import static com.example.assignment3cmpt276.UI.MainActivity.mineNum;
+import static com.example.assignment3cmpt276.UI.MainActivity.numPlayed;
 import static com.example.assignment3cmpt276.UI.MainActivity.score;
 import static com.example.assignment3cmpt276.UI.MainActivity.sizex;
 import static com.example.assignment3cmpt276.UI.MainActivity.sizey;
@@ -42,6 +44,7 @@ public class option extends AppCompatActivity {
             public void onClick(View v) {
                 score = new highScore();
                 populateHighScore();
+                numPlayed=0;
             }
         });
     }
