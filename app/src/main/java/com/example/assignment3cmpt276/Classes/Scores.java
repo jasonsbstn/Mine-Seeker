@@ -1,9 +1,11 @@
-package com.example.assignment3cmpt276;
+/*
+Created By: Jason Sebastian Aritanto
+SFU ID : 301377046
+Description : Class of scores to store the information for each settings
+*/
+package com.example.assignment3cmpt276.Classes;
 
 import android.util.Log;
-
-import static com.example.assignment3cmpt276.MainActivity.sizex;
-import static com.example.assignment3cmpt276.MainActivity.sizey;
 
 public class Scores {
     private String boardSize;
@@ -15,12 +17,7 @@ public class Scores {
         this.mineNumber = mineNumber;
         score = highestScore;
     }
-    /*public com.example.assignment3cmpt276.Scores(String boardSize,int mineNumber,int score)
-    {
-        this.boardSize = boardSize;
-        this.mineNumber = mineNumber;
-        this.score = score;
-    }*/
+
     public boolean sameSetting(String boardSize, int mineNumber)
     {
         Log.d("jennie" , boardSize +" " + this.boardSize);

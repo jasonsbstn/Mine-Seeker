@@ -1,13 +1,14 @@
-package com.example.assignment3cmpt276;
+/*
+Created By: Jason Sebastian Aritanto
+SFU ID : 301377046
+Description : Stores the high score for each settings
+*/
+package com.example.assignment3cmpt276.Classes;
 
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-
-import static com.example.assignment3cmpt276.MainActivity.sizex;
-import static com.example.assignment3cmpt276.MainActivity.sizey;
 
 public class highScore
 {

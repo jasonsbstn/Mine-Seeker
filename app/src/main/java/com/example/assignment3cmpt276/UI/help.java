@@ -1,4 +1,9 @@
-package com.example.assignment3cmpt276;
+/*
+Created By: Jason Sebastian Aritanto
+SFU ID : 301377046
+Description : This is where the help activity is created and create the hyperlink
+*/
+package com.example.assignment3cmpt276.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +11,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
-import android.view.View;
 import android.widget.TextView;
 
-import java.net.URI;
+import com.example.assignment3cmpt276.R;
 
 public class help extends AppCompatActivity {
     TextView textView;

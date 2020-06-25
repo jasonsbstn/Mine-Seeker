@@ -1,8 +1,14 @@
-package com.example.assignment3cmpt276;
+/*
+Created By: Jason Sebastian Aritanto
+SFU ID : 301377046
+Description : The default start up for animations
+*/
+package com.example.assignment3cmpt276.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,7 +18,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import static android.os.SystemClock.sleep;
+import com.example.assignment3cmpt276.R;
+import com.example.assignment3cmpt276.UI.MainActivity;
 
 public class WelcomeActivity extends AppCompatActivity {
     ImageView imageView;

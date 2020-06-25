@@ -1,4 +1,9 @@
-package com.example.assignment3cmpt276;
+/*
+Created By: Jason Sebastian Aritanto
+SFU ID : 301377046
+Description : Creates activity for the option to change size and number of mines
+*/
+package com.example.assignment3cmpt276.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,29 +11,56 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Display;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import static com.example.assignment3cmpt276.MainActivity.mineNum;
-import static com.example.assignment3cmpt276.MainActivity.score;
-import static com.example.assignment3cmpt276.MainActivity.sizex;
-import static com.example.assignment3cmpt276.MainActivity.sizey;
+import com.example.assignment3cmpt276.Classes.highScore;
+import com.example.assignment3cmpt276.R;
 
+import static com.example.assignment3cmpt276.UI.MainActivity.mineNum;
+import static com.example.assignment3cmpt276.UI.MainActivity.score;
+import static com.example.assignment3cmpt276.UI.MainActivity.sizex;
+import static com.example.assignment3cmpt276.UI.MainActivity.sizey;
 public class option extends AppCompatActivity {
     public static int[] savedValues= {4,6,6};
+    Button reset;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option);
         createRadioButton();
         savedValues=getSettings(this);
-
-
+        reset = findViewById(R.id.reset);
+        resetBtn();
     }
 
-
+    private void resetBtn() {
+        reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                score = new highScore();
+                populateHighScore();
+            }
+        });
+    }
+    private void populateHighScore() {
+        int [] rowSize=getResources().getIntArray(R.array.row);
+        int [] colSize=getResources().getIntArray(R.array.col);
+        int [] highestScore = getResources().getIntArray(R.array.highscores);
+        int [] mineNumber= getResources().getIntArray(R.array.mines);
+        for(int i =0; i<rowSize.length;i++)
+        {
+            final int xsize = rowSize[i];
+            final int ysize = colSize[i];
+            final int highestScores =highestScore[i];
+            for(int j = 0; j<mineNumber.length;j++)
+            {
+                score.add(xsize+"x"+ysize,mineNumber[j],highestScores);
+            }
+        }
+    }
 
     private void createRadioButton() {
         RadioGroup group = (RadioGroup) findViewById(R.id.collumnrowRadio);
@@ -66,11 +98,11 @@ public class option extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     mineNum=mineNums;
-                    saveMine(mineNums);
+                    saveMine(mineNum);
                 }
             });
             group2.addView(button);
-            if(mineNum==getSettings(this)[2])
+            if(mineNums==getSettings(this)[2])
             {
                 button.setChecked(true);
             }

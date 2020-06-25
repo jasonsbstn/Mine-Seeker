@@ -3,7 +3,7 @@
     SFU ID : 301377046
     Description: stores where the mine is located
  */
-package com.example.assignment3cmpt276;
+package com.example.assignment3cmpt276.Classes;
 
 import androidx.annotation.NonNull;
 
