@@ -4,7 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".option">
+    tools:context=".UI.option">
+
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="116dp"
+        android:layout_height="53dp"
+        android:text="@string/resetscore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <RadioGroup
         android:id="@+id/collumnrowRadio"
@@ -44,5 +52,7 @@
         app:layout_constraintHorizontal_bias="0.007"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="0.013" />
+        app:layout_constraintVertical_bias="0.013" >
+
+    </RadioGroup>
 </androidx.constraintlayout.widget.ConstraintLayout>

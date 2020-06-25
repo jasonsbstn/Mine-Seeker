@@ -1,17 +1,23 @@
-package com.example.assignment3cmpt276;
+/*
+Created By: Jason Sebastian Aritanto
+SFU ID : 301377046
+Description : Main activity where all the buttons to play option or help is located (Main Menu)
+*/
+package com.example.assignment3cmpt276.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.text.CollationElementIterator;
+import com.example.assignment3cmpt276.R;
+import com.example.assignment3cmpt276.Classes.highScore;
 
-import static com.example.assignment3cmpt276.option.getSettings;
-import static com.example.assignment3cmpt276.option.savedValues;
+import static com.example.assignment3cmpt276.UI.option.getSettings;
+import static com.example.assignment3cmpt276.UI.option.savedValues;
 
 public class MainActivity extends AppCompatActivity {
     public static int  sizex=savedValues[0];
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         optionBtnAct();
         populateHighScore();
         refreshScreen();
+
 
     }
     private void populateHighScore() {
@@ -97,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = play.makeIntent(MainActivity.this);
+                Intent intent = mineSeeker.makeIntent(MainActivity.this);
                 startActivity(intent);
             }
         });

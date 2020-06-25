@@ -1,4 +1,9 @@
-package com.example.assignment3cmpt276;
+/*
+Created By: Jason Sebastian Aritanto
+SFU ID : 301377046
+Description : This is where the game starts
+*/
+package com.example.assignment3cmpt276.UI;
 
 
 
@@ -10,7 +15,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Vibrator;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -20,25 +24,28 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.assignment3cmpt276.R;
+import com.example.assignment3cmpt276.Classes.mineLoc;
+
 import java.util.Random;
 
-import static com.example.assignment3cmpt276.MainActivity.mineNum;
-import static com.example.assignment3cmpt276.MainActivity.sizex;
-import static com.example.assignment3cmpt276.MainActivity.sizey;
+import static com.example.assignment3cmpt276.UI.MainActivity.mineNum;
+import static com.example.assignment3cmpt276.UI.MainActivity.sizex;
+import static com.example.assignment3cmpt276.UI.MainActivity.sizey;
 import static java.lang.Integer.parseInt;
 
-public class play extends AppCompatActivity {
+public class mineSeeker extends AppCompatActivity {
     Button buttons[][]=new Button[sizex][sizey];
     Integer click[] = new Integer[mineNum];
     int scanUsed =0;
     int mineFound =0;
     TextView mineNumber;
     TextView scanNum;
-    mineLoc mineLoc= new mineLoc();
+    com.example.assignment3cmpt276.Classes.mineLoc mineLoc= new mineLoc();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play);
+        setContentView(R.layout.activity_mine_seeker);
         mineNumber=findViewById(R.id.minesFound);
         scanNum= findViewById(R.id.scansUsed);
         scanNum.setText("#of scan used= " +scanUsed);
@@ -49,7 +56,7 @@ public class play extends AppCompatActivity {
 
     private void allMinesFound() {
         if (mineFound == mineNum) {
-            Intent intent = new Intent(play.this,winPopUp.class);
+            Intent intent = new Intent(mineSeeker.this, winPopUp.class);
             intent.putExtra("currentScore",scanUsed);
             startActivityForResult(intent,80);
         }
@@ -99,9 +106,7 @@ public class play extends AppCompatActivity {
                         mineFound++;
                         mineNumber.setText("Found "+mineFound+"of "+mineNum +" mines");
                         decreaseScanMineText(x,y);
-                        Vibrator vibrate= (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-                        vibrate.vibrate(400); //taken from https://stackoverflow.com/questions/13950338/how-to-make-an-android-device-vibrate
-                    }
+                           }
                     else if(click[finalI] == 1)
                     {
                         button.setText(""+scanMine(x,y));
@@ -136,27 +141,31 @@ public class play extends AppCompatActivity {
         }
     }
     private int scanMine(int x, int y)
-            {
-                int count = 0;
-                for(int row=0; row<sizex;row++)
-                {
-                    if(row!=x)
-                        if(mineLoc.containsMine(row+"+"+y)) {
-                            count++;
-                        }
+    {
+        int count = 0;
+        for(int row=0; row<sizex;row++)
+        {
+            if(row!=x)
+                if(mineLoc.containsMine(row+"+"+y)) {
+                    count++;
                 }
-                for(int col=0; col<sizey;col++)
-                {
+        }
+        for(int col=0; col<sizey;col++)
+        {
             if(col!=y)
                 if(mineLoc.containsMine(x+"+"+col))
              {
                  count++;
              }
         }
+
         scanUsed++;
         scanNum.setText("#of scan used= " +scanUsed);
-        if(count!=0)
+        if(count!=0) {
+            Vibrator vibrate= (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+            vibrate.vibrate(400); //taken from https://stackoverflow.com/questions/13950338/how-to-make-an-android-device-vibrate
             return count; //minus double scanning for mine at x,y twice (horizontal and vertical scan)
+        }
         else return 0;
     }
     private void lockButton() {
@@ -210,7 +219,7 @@ public class play extends AppCompatActivity {
     }
 
     public static Intent makeIntent(Context context){
-        return new Intent(context, play.class);
+        return new Intent(context, mineSeeker.class);
     }
 
 }

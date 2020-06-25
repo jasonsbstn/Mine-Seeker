@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Assignment3cmpt276</string>
+    <string name="app_name">Mine Seeker</string>
     <string name="mineseeker">MineSeeker</string>
     <string name="by_jason_sebastian_aritanto">By: Jason Sebastian Aritanto</string>
     <string name="assignment_3">Assignment 3</string>
@@ -26,4 +26,12 @@
         4. Once you found all of the mines, you won\n
         Note: Scan the row and column of the button clicked for mines
     </string>
+    <string name = "sources">
+        Image Taken from:\n
+        https://opencoursehub.cs.sfu.ca/bfraser/grav-cms/cmpt276/assignments \n
+        https://favpng.com/png_view/bomb-minesweeper-pro-classic-mine-sweeper-minesweeper-plus-likeminesweeper-png/jj3N2YV0\n
+
+
+    </string>
+    <string name="resetscore">ResetScore</string>
 </resources>
